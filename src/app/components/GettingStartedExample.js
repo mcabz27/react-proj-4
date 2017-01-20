@@ -14,6 +14,8 @@ import {
   Marker,
 } from "react-google-maps";
 
+import fancyMapStyles from "../constants/fancyMapStyles.json";
+
 /*
  * This is the modify version of:
  * https://developers.google.com/maps/documentation/javascript/examples/event-arguments
@@ -26,6 +28,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     defaultZoom={13}
     defaultCenter={{ lat: 40.7398, lng: -73.9902 }}
     onClick={props.onMapClick}
+    defaultOptions={{ styles: fancyMapStyles }}
   >
     {props.markers.map(marker => (
       <Marker

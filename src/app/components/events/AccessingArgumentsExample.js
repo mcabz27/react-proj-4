@@ -10,11 +10,14 @@ import {
   Marker,
 } from "react-google-maps";
 
+import fancyMapStyles from "../../constants/fancyMapStyles.json";
+
 const AccessingArgumentsExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
     defaultZoom={14}
     defaultCenter={props.center}
     onClick={props.onMapClick}
+    defaultOptions={{ styles: fancyMapStyles }}
   >
     {props.markers.map((marker, index) =>
       <Marker position={marker.position} key={index} />

@@ -9,6 +9,8 @@ import {
   GoogleMap,
 } from "react-google-maps";
 
+import fancyMapStyles from "../../constants/fancyMapStyles.json";
+
 /*
  * Sample From: https://developers.google.com/maps/documentation/javascript/examples/map-simple
  */
@@ -16,6 +18,7 @@ const SimpleMapExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
     defaultZoom={13}
     defaultCenter={{ lat: 40.7398, lng: -73.9902 }}
+    defaultOptions={{ styles: fancyMapStyles }}
   />
 ));
 

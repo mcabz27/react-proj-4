@@ -65,7 +65,7 @@ export default class GeolocationExample extends Component {
   state = {
     center: null,
     content: null,
-    radius: 2500,
+    radius: 4000,
   };
 
   isUnmounted = false;
@@ -77,7 +77,7 @@ export default class GeolocationExample extends Component {
       }
       this.setState({ radius: Math.max(this.state.radius - 20, 0) });
 
-      if (this.state.radius > 200) {
+      if (this.state.radius > 100) {
         raf(tick);
       }
     };

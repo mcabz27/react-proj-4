@@ -10,6 +10,8 @@ import {
   Marker,
 } from "react-google-maps";
 
+import fancyMapStyles from "../../constants/fancyMapStyles.json";
+
 import SearchBox from "react-google-maps/lib/places/SearchBox";
 
 const INPUT_STYLE = {
@@ -30,9 +32,10 @@ const INPUT_STYLE = {
 const SearchBoxExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={18}
+    defaultZoom={15}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
+    defaultOptions={{ styles: fancyMapStyles }}
   >
     <SearchBox
       ref={props.onSearchBoxMounted}
@@ -89,6 +92,7 @@ export default class SearchBoxExample extends Component {
     console.log('Lat: ' + places[0].geometry.location.lat());
     console.log('Lng: ' + places[0].geometry.location.lng());
     console.log(places[0].formatted_address);
+    console.log(places[0].name);
     // Add a marker for each place returned from search bar
     const markers = places.map(place => ({
       position: place.geometry.location,

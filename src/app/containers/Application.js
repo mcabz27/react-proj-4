@@ -25,10 +25,6 @@ import {
   ToastMessage,
 } from "react-toastr";
 
-// import {
-//   PrismCode,
-// } from "react-prism";
-
 export default class Application extends Component {
 
   static propTypes = {
@@ -40,10 +36,6 @@ export default class Application extends Component {
   handleToast(title, message) {
     this.refs.toast.success(title, message);
   }
-
-  // componentDidMount() {
-  //   window.ReactGoogleMapsToast = this.handleToast; // For AsyncApp
-  // }
 
   render() {
     return (
@@ -57,10 +49,8 @@ export default class Application extends Component {
           <Nav>
             <NavDropdown id="examples-dropdown" title="Examples">
               <LinkContainer to="/basics/simple-map"><MenuItem>Simple map</MenuItem></LinkContainer>
-              <LinkContainer to="/basics/styled-map"><MenuItem>Styled map</MenuItem></LinkContainer>
               <LinkContainer to="/basics/geolocation"><MenuItem>Geolocation</MenuItem></LinkContainer>
               <LinkContainer to="/basics/directions"><MenuItem>Directions</MenuItem></LinkContainer>
-              <LinkContainer to="/basics/pop-up-window"><MenuItem>Pop-up InfoWindow</MenuItem></LinkContainer>
               <MenuItem divider />
               <LinkContainer to="/events/accessing-arguments">
                 <MenuItem>
