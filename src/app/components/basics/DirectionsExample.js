@@ -63,7 +63,7 @@ export default class DirectionsExample extends Component {
     markers: [],
   }
 
-  componentDidMount() {
+  componentWillUpdate() {
     const DirectionsService = new google.maps.DirectionsService();
     const midLat = (this.state.origin.lat() + this.state.destination.lat())/2;
     const midLng = (this.state.origin.lng() + this.state.destination.lng())/2;
@@ -126,6 +126,7 @@ export default class DirectionsExample extends Component {
     const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
 
     this.setState({
+      destination: new google.maps.LatLng(places[0].geometry.location.lat(), places[0].geometry.location.lng()),
       center: mapCenter,
       markers,
     });
