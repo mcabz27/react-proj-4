@@ -65,9 +65,6 @@ const DirectionsExampleGoogleMap = withGoogleMap(props => (
   </GoogleMap>
 ));
 
-/*
- * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
- */
 export default class DirectionsExample extends Component {
 //add center: null update center
   state = {
@@ -130,7 +127,6 @@ export default class DirectionsExample extends Component {
       position: place.geometry.location, //puts marker on position returned
     }));
 
-    // Set markers; set map center to first search result
     const mapCenter = markers.length > 0 ? markers[0].position : this.state.center; //when more than 0 markers, sets state(center) to the 1st marker in array
 
     this.setState({ //set state as destination logged from search bar

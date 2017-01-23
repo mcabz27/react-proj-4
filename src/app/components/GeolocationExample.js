@@ -55,11 +55,6 @@ const GeolocationExampleGoogleMap = withGoogleMap(props => (
   </GoogleMap>
 ));
 
-/*
- * https://developers.google.com/maps/documentation/javascript/examples/map-geolocation
- *
- * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
- */
 export default class GeolocationExample extends Component {
 
   state = {
@@ -85,7 +80,7 @@ export default class GeolocationExample extends Component {
       if (this.isUnmounted) {
         return;
       }
-      this.setState({
+      this.setState({ //sets state to geolocated lat/lng and gives infobox
         center: {
           lat: position.coords.latitude,
           lng: position.coords.longitude,

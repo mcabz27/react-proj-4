@@ -14,7 +14,7 @@ import fancyMapStyles from "../mapstyle/fancyMapStyles.json";
 
 import SearchBox from "react-google-maps/lib/places/SearchBox";
 
-const INPUT_STYLE = {
+const INPUT_STYLE = { //search box styling
   boxSizing: `border-box`,
   MozBoxSizing: `border-box`,
   border: `1px solid transparent`,
@@ -32,8 +32,8 @@ const INPUT_STYLE = {
 const SearchBoxExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={15}
-    center={props.center}
+    defaultZoom={15} //zoom on map
+    center={props.center} //center of shown portion of map
     onBoundsChanged={props.onBoundsChanged}
     defaultOptions={{ styles: fancyMapStyles }}
   >
@@ -51,11 +51,6 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
   </GoogleMap>
 ));
 
-/*
- * https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
- *
- * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
- */
 export default class SearchBoxExample extends Component {
 
   state = {
@@ -67,42 +62,42 @@ export default class SearchBoxExample extends Component {
     markers: [],
   };
 
-  handleMapMounted = this.handleMapMounted.bind(this);
-  handleBoundsChanged = this.handleBoundsChanged.bind(this);
-  handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
-  handlePlacesChanged = this.handlePlacesChanged.bind(this);
+  // handleMapMounted = this.handleMapMounted.bind(this);
+  // handleBoundsChanged = this.handleBoundsChanged.bind(this);
+  // handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
+  // handlePlacesChanged = this.handlePlacesChanged.bind(this);
 
-  handleMapMounted(map) {
+  handleMapMounted = (map) => { //use of arrow func negates bind.this
     this._map = map;
-  }
+  };
 
-  handleBoundsChanged() {
+  handleBoundsChanged = () => {
     this.setState({
       bounds: this._map.getBounds(),
       center: this._map.getCenter(),
     });
-  }
+  };
 
-  handleSearchBoxMounted(searchBox) {
+  handleSearchBoxMounted = (searchBox) => {
     this._searchBox = searchBox;
-  }
+  };
 
-  handlePlacesChanged() {
-    const places = this._searchBox.getPlaces();
-    console.log('Lat: ' + places[0].geometry.location.lat());
+  handlePlacesChanged = () => {
+    const places = this._searchBox.getPlaces(); //places is now information recieved from searchbox.
+    console.log(places[0]);
+    console.log('Lat: ' + places[0].geometry.location.lat()); //parsing through info
     console.log('Lng: ' + places[0].geometry.location.lng());
     console.log(places[0].formatted_address);
     console.log(places[0].name);
     // Add a marker for each place returned from search bar
     const markers = places.map(place => ({
-      position: place.geometry.location,
+      position: place.geometry.location, //puts marker on position returned
     }));
 
-    // Set markers; set map center to first search result
-    const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
+    const mapCenter = markers.length > 0 ? markers[0].position : this.state.center; //sets map center to marker in 1st position in array
 
     this.setState({
-      center: mapCenter,
+      center: mapCenter, //resets state to mapCenter ^^
       markers,
     });
   }

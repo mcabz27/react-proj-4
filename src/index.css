@@ -24,6 +24,10 @@ html, body {
   height:  700px;
 }
 
+.navHover:hover {
+  color: green;
+}
+
 .button {
   margin-left: 30px;
   margin-top: 7px;

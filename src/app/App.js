@@ -41,3 +41,4 @@ export default class App extends Component {
     );
   }
 }
+//react router sets paths to components. router history import allows user to simply use back button on browser b/c it saves users paths through app/files
