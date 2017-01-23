@@ -2,6 +2,7 @@
   "name": "halfway_eats",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://mcabz27.github.io/react-proj-4"
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-core": "^6.16.0",
