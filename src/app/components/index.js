@@ -1,7 +1,14 @@
-import GettingStartedExample from "./GettingStartedExample";
+import SearchBoxExample from "./SearchBoxExample";
+import GeolocationExample from "./GeolocationExample";
+import DirectionsExample from "./DirectionsExample";
 
-GettingStartedExample.__raw = require(`!raw!./GettingStartedExample`);
+SearchBoxExample.__raw = require(`!raw!./SearchBoxExample`);
+GeolocationExample.__raw = require(`!raw!./GeolocationExample`);
+DirectionsExample.__raw = require(`!raw!./DirectionsExample`);
 
 export {
-  GettingStartedExample,
+  GeolocationExample,
+  DirectionsExample,
+  SearchBoxExample,
 };
+

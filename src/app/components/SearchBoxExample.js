@@ -10,7 +10,7 @@ import {
   Marker,
 } from "react-google-maps";
 
-import fancyMapStyles from "../../constants/fancyMapStyles.json";
+import fancyMapStyles from "../mapstyle/fancyMapStyles.json";
 
 import SearchBox from "react-google-maps/lib/places/SearchBox";
 
@@ -18,7 +18,7 @@ const INPUT_STYLE = {
   boxSizing: `border-box`,
   MozBoxSizing: `border-box`,
   border: `1px solid transparent`,
-  width: `240px`,
+  width: `440px`,
   height: `32px`,
   marginTop: `27px`,
   padding: `0 12px`,
@@ -42,7 +42,7 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
       bounds={props.bounds}
       controlPosition={google.maps.ControlPosition.TOP_LEFT}
       onPlacesChanged={props.onPlacesChanged}
-      inputPlaceholder="Type An Address!"
+      inputPlaceholder="Search A Random Place!"
       inputStyle={INPUT_STYLE}
     />
     {props.markers.map((marker, index) => (

@@ -16,7 +16,7 @@ import {
   InfoWindow,
 } from "react-google-maps";
 
-import fancyMapStyles from "../../constants/fancyMapStyles.json";
+import fancyMapStyles from "../mapstyle/fancyMapStyles.json";
 
 const geolocation = (
   canUseDOM && navigator.geolocation ?
@@ -70,7 +70,7 @@ export default class GeolocationExample extends Component {
 
   isUnmounted = false;
 
-  componentDidMount() {
+  componentDidMount() { // components mounts but only once.
     const tick = () => {
       if (this.isUnmounted) {
         return;

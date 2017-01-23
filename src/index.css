@@ -9,12 +9,34 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-image: url('http://wallpapercave.com/wp/2N8Zebr.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-html, body, #root, .full-height {
-  height: 600px;
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+#root, .full-height{
+  height:  700px;
+}
+
+.button {
+  margin-left: 30px;
+  margin-top: 7px;
+}
+
+.directions{
+  margin-right: 30px
+}
+/*
+.button:hover {
+  background-color: green;
+}
+ */
 @keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);

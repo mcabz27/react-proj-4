@@ -19,28 +19,13 @@ import {
 } from "./containers";
 
 import {
-  GettingStartedExample,
-} from "./components";
-
-import {
-  SimpleMapExample,
   GeolocationExample,
   DirectionsExample,
-} from "./components/basics";
-
-import {
-  AccessingArgumentsExample,
-  GettingPropertiesExample,
-} from "./components/events";
-
-
-import {
   SearchBoxExample,
-} from "./components/places";
-
+} from "./components";
 
 const history = useRouterHistory(createHistory)({
-  basename: `/react-google-maps`,
+  basename: `/midways`,
 });
 
 export default class App extends Component {
@@ -48,19 +33,9 @@ export default class App extends Component {
     return (
       <Router history={history}>
         <Route path="/" component={Application}>
-          <IndexRoute component={GettingStartedExample} />
-          <Route path="basics">
-            <Route path="simple-map" component={SimpleMapExample} />
+          <IndexRoute component={SearchBoxExample} />
             <Route path="geolocation" component={GeolocationExample} />
             <Route path="directions" component={DirectionsExample} />
-          </Route>
-          <Route path="events">
-            <Route path="accessing-arguments" component={AccessingArgumentsExample} />
-            <Route path="getting-properties" component={GettingPropertiesExample} />
-          </Route>
-          <Route path="places">
-            <Route path="search-box" component={SearchBoxExample} />
-          </Route>
         </Route>
       </Router>
     );

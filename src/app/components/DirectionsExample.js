@@ -4,22 +4,36 @@ import {
   Component,
 } from "react";
 
+// import raf from "raf";
+
+// import canUseDOM from "can-use-dom";
+
 import {
   withGoogleMap,
   GoogleMap,
   DirectionsRenderer,
-  Marker
-} from "react-google-maps";
+  Marker,
+} from "react-google-maps"; //importing from library(npm install react-google-maps)
 
-import fancyMapStyles from "../../constants/fancyMapStyles.json";
+import fancyMapStyles from "../mapstyle/fancyMapStyles.json";
 
 import SearchBox from "react-google-maps/lib/places/SearchBox";
 
-const INPUT_STYLE = {
+// const geolocation = (
+//   canUseDOM && navigator.geolocation ?
+//   navigator.geolocation :
+//   ({
+//     getCurrentPosition(success, failure) {
+//       failure(`Your browser doesn't support geolocation.`);
+//     },
+//   })
+// );
+
+const INPUT_STYLE = { //search box styling
   boxSizing: `border-box`,
   MozBoxSizing: `border-box`,
   border: `1px solid transparent`,
-  width: `240px`,
+  width: `440px`,
   height: `32px`,
   marginTop: `27px`,
   padding: `0 12px`,
@@ -32,7 +46,7 @@ const INPUT_STYLE = {
 
 const DirectionsExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
-    defaultZoom={10}
+    defaultZoom={16}
     defaultCenter={props.center}
     defaultOptions={{ styles: fancyMapStyles }}
   >
@@ -41,7 +55,7 @@ const DirectionsExampleGoogleMap = withGoogleMap(props => (
     bounds={props.bounds}
     controlPosition={google.maps.ControlPosition.TOP_LEFT}
     onPlacesChanged={props.onPlacesChanged}
-    inputPlaceholder="Type An Address!"
+    inputPlaceholder="Type Your Friend's Address!"
     inputStyle={INPUT_STYLE}
   />
     {props.directions && <DirectionsRenderer directions={props.directions} />}
@@ -55,15 +69,15 @@ const DirectionsExampleGoogleMap = withGoogleMap(props => (
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
  */
 export default class DirectionsExample extends Component {
-
+//add center: null update center
   state = {
     origin: new google.maps.LatLng(40.7398, -73.9902),
-    destination: new google.maps.LatLng(40.697782, -73.930242),
+    destination: new google.maps.LatLng(40.697782, -74.930242),
     directions: null,
     markers: [],
-  }
+  };
 
-  componentWillUpdate() {
+  componentWillUpdate() { //lifecycle function. lets component be updated. DOES NOT load only once. allows destination to be changed in search box w/o reloading whole page.
     const DirectionsService = new google.maps.DirectionsService();
     const midLat = (this.state.origin.lat() + this.state.destination.lat())/2;
     const midLng = (this.state.origin.lng() + this.state.destination.lng())/2;
@@ -76,57 +90,51 @@ export default class DirectionsExample extends Component {
     const middle = new google.maps.LatLng(midLat, midLng);
     DirectionsService.route({
       origin: this.state.origin,
-      destination: middle,
-      travelMode: google.maps.TravelMode.WALKING,
+      destination: middle, //sets B marker(destination) to halfway
+      travelMode: google.maps.TravelMode.WALKING, //uses walking. can also use TRANSIT, DRIVING
     }, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
-        this.setState({
+        this.setState({ //if app gets OK...sets directions to result
           directions: result,
         });
       } else {
-        console.error(`error fetching directions ${result}`);
+        console.error(`error fetching directions ${result}`); //shoots error message
       }
-
     });
   };
 
-  handleMapMounted = this.handleMapMounted.bind(this);
-  handleBoundsChanged = this.handleBoundsChanged.bind(this);
-  handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
-  handlePlacesChanged = this.handlePlacesChanged.bind(this);
-
-  handleMapMounted(map) {
+  handleMapMounted = (map) => { //use arrow functions to get rid of some of this keyword
     this._map = map;
-  }
+  };
 
-  handleBoundsChanged() {
+  handleBoundsChanged = () => {
     this.setState({
       bounds: this._map.getBounds(),
       center: this._map.getCenter(),
     });
-  }
+  };
 
-  handleSearchBoxMounted(searchBox) {
+  handleSearchBoxMounted = (searchBox) => { //
     this._searchBox = searchBox;
-  }
+  };
 
-  handlePlacesChanged() {
-    const places = this._searchBox.getPlaces();
+  handlePlacesChanged = () => {
+    const places = this._searchBox.getPlaces(); //places is now information recieved from searchbox.
     console.log(places[0]);
-    console.log('Lat: ' + places[0].geometry.location.lat());
+    console.log('Lat: ' + places[0].geometry.location.lat()); //parsing through info
     console.log('Lng: ' + places[0].geometry.location.lng());
     console.log(places[0].formatted_address);
     console.log(places[0].name);
     // Add a marker for each place returned from search bar
     const markers = places.map(place => ({
-      position: place.geometry.location,
+      position: place.geometry.location, //puts marker on position returned
     }));
 
     // Set markers; set map center to first search result
-    const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
+    const mapCenter = markers.length > 0 ? markers[0].position : this.state.center; //when more than 0 markers, sets state(center) to the 1st marker in array
 
-    this.setState({
-      destination: new google.maps.LatLng(places[0].geometry.location.lat(), places[0].geometry.location.lng()),
+    this.setState({ //set state as destination logged from search bar
+      destination: new google.maps.LatLng(places[0].geometry.location.lat(), places[0].geometry.location.lng()), //places is what is returned from google. parsing through to get lat/lng of place from search bar
       center: mapCenter,
       markers,
     });
@@ -141,14 +149,14 @@ export default class DirectionsExample extends Component {
         mapElement={
           <div style={{ height: `100%` }} />
         }
-        center={this.state.origin}
-        directions={this.state.directions}
-        onMapMounted={this.handleMapMounted}
-        onBoundsChanged={this.handleBoundsChanged}
-        onSearchBoxMounted={this.handleSearchBoxMounted}
-        bounds={this.state.bounds}
+        center={this.state.origin} //sets center to entered origin
+        directions={this.state.directions} //sets state as returned directions
+        onMapMounted={this.handleMapMounted} //map loads
+        onBoundsChanged={this.handleBoundsChanged} //handles change when new place is entered in search box.
+        onSearchBoxMounted={this.handleSearchBoxMounted} //searchbar loads
+        bounds={this.state.bounds} //area of map shown
         onPlacesChanged={this.handlePlacesChanged}
-        markers={this.state.markers}
+        markers={this.state.markers} //returns state of the markers
       />
     );
   }

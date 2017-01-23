@@ -12,8 +12,10 @@ import {
 import {
   Navbar,
   Nav,
-  NavDropdown,
   MenuItem,
+  Modal, //modal comes w/ subcomponents (header, title, footer, body)
+  Button,
+  Panel
 } from "react-bootstrap";
 
 import {
@@ -26,6 +28,19 @@ import {
 } from "react-toastr";
 
 export default class Application extends Component {
+
+  state = {
+    showModal: false,
+    open: false
+     }; //hide it at first
+
+  close = () => { //make sure of arrow functions...modal breaks w.o arrow!!!
+    this.setState({ showModal: false });
+  };
+
+  open = () => { //opens
+    this.setState({ showModal: true });
+  };
 
   static propTypes = {
     children: PropTypes.element.isRequired,
@@ -43,29 +58,37 @@ export default class Application extends Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">React Google Maps</Link>
+              <Link to="/">Midways</Link>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <NavDropdown id="examples-dropdown" title="Examples">
-              <LinkContainer to="/basics/simple-map"><MenuItem>Simple map</MenuItem></LinkContainer>
-              <LinkContainer to="/basics/geolocation"><MenuItem>Geolocation</MenuItem></LinkContainer>
-              <LinkContainer to="/basics/directions"><MenuItem>Directions</MenuItem></LinkContainer>
-              <MenuItem divider />
-              <LinkContainer to="/events/accessing-arguments">
-                <MenuItem>
-                  Accessing arguments in UI events
-                </MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/events/getting-properties">
-                <MenuItem>
-                  Getting properties with event handlers
-                </MenuItem>
-              </LinkContainer>
-              <MenuItem divider />
-              <LinkContainer to="/places/search-box"><MenuItem>Adding a places search box</MenuItem>
-              </LinkContainer>
-            </NavDropdown>
+            <LinkContainer to="/geolocation"><MenuItem>Geolocate Yourself</MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/directions"><MenuItem>Find The Midway!</MenuItem>
+            </LinkContainer>
+            <Button
+              className="button"
+              bsStyle="primary"
+              onClick={this.open}>
+              Contact Me!
+            </Button>
+            <Modal show={this.state.showModal} onHide={this.close}>
+              <Modal.Header closeButton>
+                <Modal.Title>How To Contact Me</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <ul>
+                  <h3>
+                  <li><a href="https://www.linkedin.com/in/matthew-cabezon">LinkedIn</a></li>
+                  <li><a href="https://github.com/mcabz27">GitHub</a></li>
+                  <li><a href="mailto:matt.cabezon@gmail.com">Email Me</a></li>
+                  </h3>
+                </ul>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close}>Close</Button>
+              </Modal.Footer>
+            </Modal>
           </Nav>
         </Navbar>
         <div className="container-fluid full-height">
@@ -74,12 +97,24 @@ export default class Application extends Component {
             toastMessageFactory={React.createFactory(ToastMessage.animation)}
           />
           <div className="row full-height">
-            <div className="col-xs-7" style={{ height: `100%` }}>
+            <div className="col-xs-9" style={{ height: `100%` }}>
               {React.cloneElement(Children.only(this.props.children), {
                 toast: this.handleToast,
               })}
             </div>
-            <div className="col-xs-5">
+            <div className="col-xs-3">
+              <div>
+                <Button
+                  className="button directions"
+                  bsSize="large"
+                  onClick={ ()=> this.setState({
+                    open: !this.state.open })}>
+                    How To Use Midways!
+                </Button>
+                <Panel collapsible expanded={this.state.open}><h3>
+                  It's simple! Click on the <a href="/midways/directions">Find the Midway!</a> tab and type in your friends address, or where ever he or she may be.  This will give you directions to meet up half way in between you two. Hopefully this helps your plans!</h3>
+                </Panel>
+              </div>
             </div>
           </div>
         </div>
