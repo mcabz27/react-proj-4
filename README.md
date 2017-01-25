@@ -9,6 +9,10 @@
 ##Problems Faced
 * Getting a map to actually render on the page was difficult at first.
     * With the help of a tutorial (https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/), pre-built react google maps components (https://github.com/tomchentw/react-google-maps), and the npm module react-google-maps maps were getting rendered on the page.
+* Getting the maps to work with the npm module.
+    * Combing through stackoverflow, reading issues, and just playing around with how I imported the files from react-google-maps(the file path).
+* Combining the logic and components to get the directions to display halfway.
+    * Getting a better understanding of react lifecyle was what got the directions to update and find the halfway point without reloading the entire page.
 
 ##Used
 * React
